@@ -20,25 +20,28 @@ namespace LegoController
             InitializeComponent();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private async void Form1_Load(object sender, EventArgs e)
         {
             Debug.WriteLine("Controller activated");
-            _brick = new MainBrick();
-            //await _brick.Connect_Brick();
+            _brick = new MainBrick(1);
+            await _brick.Connect_Brick();
         }
 
-        private void _ForwardClicked(object sender, EventArgs e)
+        private async void _ForwardClicked(object sender, EventArgs e)
         {
+            await _brick.MoveForwad(true);
             Debug.WriteLine("Moving forward");
         }
 
-        private void _LeftClicked(object sender, EventArgs e)
+        private async void _LeftClicked(object sender, EventArgs e)
         {
+            await _brick.TurnLeft(true);
             Debug.WriteLine("Turning left");
         }
 
-        private void _BackwardClicked(object sender, EventArgs e)
+        private async void _BackwardClicked(object sender, EventArgs e)
         {
+            await _brick.MoveBackward(true);
             Debug.WriteLine("Moving backward");
         }
 
