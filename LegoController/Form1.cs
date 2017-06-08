@@ -45,9 +45,20 @@ namespace LegoController
             Debug.WriteLine("Moving backward");
         }
 
-        private void _RightClicked(object sender, EventArgs e)
+        private async void _RightClicked(object sender, EventArgs e)
         {
+            await _brick.TurnRight(true);
             Debug.WriteLine("Turning right");
+
+        }
+        private async void PickUp_Click(object sender, EventArgs e)
+        {
+            await _brick.PickUp(false);
+            Debug.WriteLine("Picking Up");
+        }
+        private async void DropOff_Click(object sender, EventArgs e)
+        {
+            await _brick.DropOff(false);
         }
     }
 }
