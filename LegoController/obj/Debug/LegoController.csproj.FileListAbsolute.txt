@@ -10,3 +10,15 @@ F:\C#Project\LegoController\LegoController\obj\Debug\LegoController.Properties.R
 F:\C#Project\LegoController\LegoController\obj\Debug\LegoController.csproj.GenerateResource.Cache
 F:\C#Project\LegoController\LegoController\obj\Debug\LegoController.exe
 F:\C#Project\LegoController\LegoController\obj\Debug\LegoController.pdb
+F:\LegoController\LegoController\bin\Debug\LegoController.exe.config
+F:\LegoController\LegoController\obj\Debug\LegoController.exe
+F:\LegoController\LegoController\obj\Debug\LegoController.pdb
+F:\LegoController\LegoController\bin\Debug\LegoController.exe
+F:\LegoController\LegoController\bin\Debug\LegoController.pdb
+F:\LegoController\LegoController\bin\Debug\Lego.Ev3.Desktop.dll
+F:\LegoController\LegoController\bin\Debug\Lego.Ev3.Desktop.pdb
+F:\LegoController\LegoController\bin\Debug\Lego.Ev3.Desktop.xml
+F:\LegoController\LegoController\obj\Debug\LegoController.csprojResolveAssemblyReference.cache
+F:\LegoController\LegoController\obj\Debug\LegoController.GUI.resources
+F:\LegoController\LegoController\obj\Debug\LegoController.Properties.Resources.resources
+F:\LegoController\LegoController\obj\Debug\LegoController.csproj.GenerateResource.Cache
