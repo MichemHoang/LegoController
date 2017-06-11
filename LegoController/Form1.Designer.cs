@@ -235,6 +235,7 @@
             this.SendMess.TabIndex = 1;
             this.SendMess.Text = "Send";
             this.SendMess.UseVisualStyleBackColor = true;
+            this.SendMess.Click += new System.EventHandler(this.SendMess_Click);
             // 
             // InputMessage
             // 

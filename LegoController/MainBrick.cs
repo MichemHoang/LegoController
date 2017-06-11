@@ -125,6 +125,15 @@ namespace LegoController
             }
         }
 
+        //
+        //Brick Communication
+        //
+
+        public void Send_text(string Mess)
+        {
+            Ev3Brick.DirectCommand.DrawTextAsync(Color.Foreground , 1, 1, Mess);
+        }
+
         private void Ev3Brick_BrickChanged(object sender, BrickChangedEventArgs e)
         {
         }

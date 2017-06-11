@@ -129,6 +129,12 @@ namespace LegoController
         {
             _brick.Stop();
         }
-        
+
+        private void SendMess_Click(object sender, EventArgs e)
+        {
+            string Mess = InputMessage.Text;
+            _brick.Send_text(Mess);
+            InputMessage.Clear();
+        }
     }
 }
