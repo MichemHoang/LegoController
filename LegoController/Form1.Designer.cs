@@ -212,7 +212,7 @@
             this.BlueToothPort.Name = "BlueToothPort";
             this.BlueToothPort.Size = new System.Drawing.Size(247, 60);
             this.BlueToothPort.TabIndex = 0;
-            this.BlueToothPort.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            this.BlueToothPort.TextChanged += new System.EventHandler(this.BluetoothPort_TextChanged);
             // 
             // InputGroup
             // 

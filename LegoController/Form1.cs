@@ -33,8 +33,10 @@ namespace LegoController
         {
             if (Connect_to_Brick)
             {
-                await _brick.MoveForwad(true, 40, 4000, 1);
+                await _brick.MoveForwad(true, 40, 2000, 2);
                 Debug.WriteLine("Moving forward");
+                OutputMess.Clear();
+                OutputMess.AppendText("Moving forward");
             }
             else MessageBox.Show("Pls Type in port");
         }
@@ -43,8 +45,10 @@ namespace LegoController
         {
             if (Connect_to_Brick)
             {
-                await _brick.TurnLeft(true);
+                await _brick.TurnLeft(true, 20, 1500);
                 Debug.WriteLine("Turning left");
+                OutputMess.Clear();
+                OutputMess.AppendText("Turning left");
             }
             else MessageBox.Show("Pls Type in port");
         }
@@ -52,7 +56,7 @@ namespace LegoController
         {
             if (Connect_to_Brick)
             {
-                await _brick.MoveBackward(true);
+                await _brick.MoveBackward(true, 30, 2000, 2);
                 Debug.WriteLine("Moving backward");
                 OutputMess.Clear();
                 OutputMess.AppendText("Moving backward");
@@ -64,7 +68,7 @@ namespace LegoController
         {
             if (Connect_to_Brick)
             {
-                await _brick.TurnRight(true);
+                await _brick.TurnRight(true, 30, 1500);
                 Debug.WriteLine("Turning right");
                 OutputMess.Clear();
                 OutputMess.AppendText("Turning right");
@@ -95,7 +99,14 @@ namespace LegoController
             else MessageBox.Show("Pls Type in port");
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
+        private async void StopButton_Click(object sender, EventArgs e)
+        {
+            await _brick.Stop();
+            OutputMess.Clear();
+            OutputMess.AppendText("Stop");
+        }
+
+        private void BluetoothPort_TextChanged(object sender, EventArgs e)
         {
             PortSpecified = true;
             BluetoothPortName = BlueToothPort.Text;
@@ -110,10 +121,18 @@ namespace LegoController
                 {
                     _brick = new MainBrick(1, BluetoothPortName);
                     await _brick.Connect_Brick();
+                    Connect_to_Brick = true;
                 }
                 catch (ArgumentException EG)
                 {
-                    MessageBox.Show("Incorrect port");
+                    MessageBox.Show("Pls dont type in Bs");
+                    OutputMess.Clear();
+                    OutputMess.AppendText(EG.ToString());
+                }
+                catch (System.IO.IOException EM)
+                {
+                    
+                    MessageBox.Show("Port doesnt exist");
                 }
             }
         }
@@ -123,11 +142,6 @@ namespace LegoController
             _brick.Disconnect_Brick();
             PortSpecified = false;
             Connect_to_Brick = false;
-        }
-
-        private void StopButton_Click(object sender, EventArgs e)
-        {
-            _brick.Stop();
         }
 
         private void SendMess_Click(object sender, EventArgs e)
