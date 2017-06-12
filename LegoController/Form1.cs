@@ -101,9 +101,13 @@ namespace LegoController
 
         private async void StopButton_Click(object sender, EventArgs e)
         {
-            await _brick.Stop();
-            OutputMess.Clear();
-            OutputMess.AppendText("Stop");
+            if (Connect_to_Brick)
+            {
+                await _brick.Stop();
+                OutputMess.Clear();
+                OutputMess.AppendText("Stop");
+            }
+            else MessageBox.Show("Pls Type in port");
         }
 
         private void BluetoothPort_TextChanged(object sender, EventArgs e)
@@ -126,12 +130,9 @@ namespace LegoController
                 catch (ArgumentException EG)
                 {
                     MessageBox.Show("Pls dont type in Bs");
-                    OutputMess.Clear();
-                    OutputMess.AppendText(EG.ToString());
                 }
                 catch (System.IO.IOException EM)
                 {
-                    
                     MessageBox.Show("Port doesnt exist");
                 }
             }
@@ -139,16 +140,33 @@ namespace LegoController
 
         private void DisconnectButton_Click(object sender, EventArgs e)
         {
-            _brick.Disconnect_Brick();
-            PortSpecified = false;
-            Connect_to_Brick = false;
+            if (Connect_to_Brick)
+            {
+                _brick.Disconnect_Brick();
+                PortSpecified = false;
+                Connect_to_Brick = false;
+            }
+            else MessageBox.Show("Pls Type in port");
         }
 
-        private void SendMess_Click(object sender, EventArgs e)
+        private async void SendMess_Click(object sender, EventArgs e)
         {
-            string Mess = InputMessage.Text;
-            _brick.Send_text(Mess);
-            InputMessage.Clear();
+            if (Connect_to_Brick)
+            {
+                string Mess = InputMessage.Text;
+                await _brick.Send_text(Mess);
+                InputMessage.Clear();
+            }
+            else MessageBox.Show("Pls Type in port");
+        }
+        private async void Follow_path_Click(object sender, EventArgs e)
+        {
+            if (Connect_to_Brick)
+            {
+                OutputMess.Clear();
+                OutputMess.AppendText("Following path");
+                await _brick.FollowPath();
+            } else MessageBox.Show("Pls Type in port");
         }
     }
 }

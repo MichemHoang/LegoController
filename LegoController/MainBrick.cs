@@ -45,6 +45,7 @@ namespace LegoController
 
         public async Task Connect_Brick()
         {
+            await Ev3Brick.DirectCommand.SelectFontAsync(FontType.Medium);
             Ev3Brick.Ports[InputPort.Two].SetMode(ColorMode.Color);
             await Ev3Brick.ConnectAsync();
             await Ev3Brick.DirectCommand.PlayToneAsync(50, 1000, 300);
@@ -156,9 +157,9 @@ namespace LegoController
         //Brick Communication
         //
 
-        public void Send_text(string Mess)
+        public async Task Send_text(string Mess)
         {
-            Ev3Brick.DirectCommand.DrawTextAsync(Color.Foreground , 1, 1, Mess);
+            await Ev3Brick.DirectCommand.DrawTextAsync(Color.Foreground , 1, 1, Mess);
         }
 
         private void Ev3Brick_BrickChanged(object sender, BrickChangedEventArgs e)
