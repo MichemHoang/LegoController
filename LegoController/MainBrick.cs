@@ -115,14 +115,17 @@ namespace LegoController
                 if (CurrentColor == 7 || CurrentColor == 1)
                 {
                     await MoveForwad(true, 30, 300, 1);
+                    Debug.WriteLine("Moving forward");
                     PreviousColor = 1;
                 }
                 if (CurrentColor == 4 || (CurrentColor == 6 && PreviousColor == 4))
                 {
+                    Debug.WriteLine("Turning right");
                     await TurnRight(true, 15, 100);
                     PreviousColor = 4;
                 }
                 if (CurrentColor == 5 || (CurrentColor == 6 && PreviousColor == 5)){
+                    Debug.WriteLine("Turnign left");
                     await TurnLeft(true, 15, 100);
                     PreviousColor = 5;
                 }
@@ -139,7 +142,7 @@ namespace LegoController
                         SensorDistance = (int)Ev3Brick.Ports[InputPort.One].SIValue;
                         if (SensorDistance > 7)
                         {
-
+                            //tao chua thu
                         } else
                         {
                             await MoveForwad(true, 30, 100, 1);

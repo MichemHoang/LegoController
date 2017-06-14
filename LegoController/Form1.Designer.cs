@@ -166,9 +166,9 @@
             this.ConnectionGroup.Controls.Add(this.ConnectDescript);
             this.ConnectionGroup.Controls.Add(this.BlueToothPort);
             this.ConnectionGroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ConnectionGroup.Location = new System.Drawing.Point(32, 18);
+            this.ConnectionGroup.Location = new System.Drawing.Point(12, 18);
             this.ConnectionGroup.Name = "ConnectionGroup";
-            this.ConnectionGroup.Size = new System.Drawing.Size(279, 145);
+            this.ConnectionGroup.Size = new System.Drawing.Size(299, 145);
             this.ConnectionGroup.TabIndex = 7;
             this.ConnectionGroup.TabStop = false;
             this.ConnectionGroup.Text = "Connection";
@@ -176,7 +176,7 @@
             // DisconnectButton
             // 
             this.DisconnectButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DisconnectButton.Location = new System.Drawing.Point(152, 111);
+            this.DisconnectButton.Location = new System.Drawing.Point(171, 111);
             this.DisconnectButton.Name = "DisconnectButton";
             this.DisconnectButton.Size = new System.Drawing.Size(111, 23);
             this.DisconnectButton.TabIndex = 3;
@@ -211,7 +211,7 @@
             this.BlueToothPort.Location = new System.Drawing.Point(16, 45);
             this.BlueToothPort.Multiline = true;
             this.BlueToothPort.Name = "BlueToothPort";
-            this.BlueToothPort.Size = new System.Drawing.Size(247, 60);
+            this.BlueToothPort.Size = new System.Drawing.Size(266, 60);
             this.BlueToothPort.TabIndex = 0;
             this.BlueToothPort.TextChanged += new System.EventHandler(this.BluetoothPort_TextChanged);
             // 
@@ -220,9 +220,9 @@
             this.InputGroup.Controls.Add(this.SendMess);
             this.InputGroup.Controls.Add(this.InputMessage);
             this.InputGroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.InputGroup.Location = new System.Drawing.Point(29, 169);
+            this.InputGroup.Location = new System.Drawing.Point(12, 169);
             this.InputGroup.Name = "InputGroup";
-            this.InputGroup.Size = new System.Drawing.Size(128, 175);
+            this.InputGroup.Size = new System.Drawing.Size(145, 175);
             this.InputGroup.TabIndex = 8;
             this.InputGroup.TabStop = false;
             this.InputGroup.Text = "Input";
@@ -230,7 +230,7 @@
             // SendMess
             // 
             this.SendMess.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SendMess.Location = new System.Drawing.Point(6, 124);
+            this.SendMess.Location = new System.Drawing.Point(16, 124);
             this.SendMess.Name = "SendMess";
             this.SendMess.Size = new System.Drawing.Size(113, 24);
             this.SendMess.TabIndex = 1;
@@ -240,7 +240,7 @@
             // 
             // InputMessage
             // 
-            this.InputMessage.Location = new System.Drawing.Point(6, 21);
+            this.InputMessage.Location = new System.Drawing.Point(16, 21);
             this.InputMessage.Multiline = true;
             this.InputMessage.Name = "InputMessage";
             this.InputMessage.Size = new System.Drawing.Size(113, 87);
