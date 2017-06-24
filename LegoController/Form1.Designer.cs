@@ -132,7 +132,7 @@
             this.ControlGroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ControlGroup.Location = new System.Drawing.Point(317, 18);
             this.ControlGroup.Name = "ControlGroup";
-            this.ControlGroup.Size = new System.Drawing.Size(222, 279);
+            this.ControlGroup.Size = new System.Drawing.Size(222, 322);
             this.ControlGroup.TabIndex = 6;
             this.ControlGroup.TabStop = false;
             this.ControlGroup.Text = "CONTROL";
@@ -271,7 +271,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightCyan;
-            this.ClientSize = new System.Drawing.Size(551, 352);
+            this.ClientSize = new System.Drawing.Size(550, 360);
             this.Controls.Add(this.OutputGroup);
             this.Controls.Add(this.InputGroup);
             this.Controls.Add(this.ConnectionGroup);

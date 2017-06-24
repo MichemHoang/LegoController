@@ -24,11 +24,11 @@ namespace LegoController
 
         public MainBrick(int A, string SerialPortName)
         {
-            Turn = 10;
-            Forward = 10;
-            _dropOff = -50;
-            _pickUp = 50;
-            Time = 200;
+            Turn = -10;
+            Forward = -10;
+            _dropOff = 50;
+            _pickUp = -50;
+            Time = 30;
             if (A == 1) Ev3Brick = new Brick(new BluetoothCommunication(SerialPortName));
             else Ev3Brick = new Brick(new UsbCommunication());
             Ev3Brick.BrickChanged += Ev3Brick_BrickChanged;
@@ -108,42 +108,68 @@ namespace LegoController
             bool CheckPickUp = false;
             int PreviousColor = 20;
             int CurrentColor = 20;
+            int cnt = 0;
             StopS = false;
             int SensorDistance = (int)Ev3Brick.Ports[InputPort.One].SIValue;
             while (CurrentColor != 0 && !StopS)
             {
                 CurrentColor = (int)Ev3Brick.Ports[InputPort.Two].SIValue;
+                if (CurrentColor == 6) cnt++;
+                else cnt = 0;
                 if (CurrentColor == 7 || CurrentColor == 1)
                 {
-                    await MoveForwad(true, Forward, Time, 1);
+                    await MoveForwad(true, 20, 30, 1);
                     Debug.WriteLine("Moving forward");
+                    System.Threading.Thread.Sleep(31);
                     PreviousColor = 1;
+
                 }
                 if (CurrentColor == 4 || (CurrentColor == 6 && PreviousColor == 4))
                 {
                     Debug.WriteLine("Turning right");
-                    await TurnRight(true, Turn, Time);
+                    await TurnRight(true, 17, 30);
+                    System.Threading.Thread.Sleep(31);
                     PreviousColor = 4;
                 }
                 if (CurrentColor == 5 || (CurrentColor == 6 && PreviousColor == 5))
                 {
                     Debug.WriteLine("Turning left");
-                    await TurnLeft(true, Turn, Time);
+                    await TurnLeft(true, 17, 30);
+                    System.Threading.Thread.Sleep(31);
                     PreviousColor = 5;
                 }
-                if (PreviousColor == 1 && CurrentColor == 6)
+                if (PreviousColor == 1 && CurrentColor == 6 || cnt >= 5)
                 {
                     if (CheckPickUp)
                     {
                         await DropOff(true);
+                        System.Threading.Thread.Sleep(1000);
+                        await TurnRight(true, 40, 1000);
+                        System.Threading.Thread.Sleep(1500);
+                        await MoveForwad(true, 40, 1000, 1);
+                        System.Threading.Thread.Sleep(1500);
+                        CurrentColor = (int)Ev3Brick.Ports[InputPort.Two].SIValue;
+                        while (CurrentColor == 6)
+                        {
+                            await TurnRight(true, 20, 100);
+                            CurrentColor = (int)Ev3Brick.Ports[InputPort.Two].SIValue;
+                        }
                     }
                     else
                     {
                         await PickUp(true);
-                        await TurnRight(true, 40, 500);
-                        await MoveForwad(true, 10, 1000, 1);
+                        System.Threading.Thread.Sleep(1000);
+                        await TurnRight(true, 40, 1000);
+                        System.Threading.Thread.Sleep(1500);
+                        await MoveForwad(true, 40, 1000, 1);
+                        System.Threading.Thread.Sleep(1500);
                         CheckPickUp = true;
                         CurrentColor = (int)Ev3Brick.Ports[InputPort.Two].SIValue;
+                        while (CurrentColor == 6)
+                        {
+                            await TurnRight(true, Turn, Time);
+                            CurrentColor = (int)Ev3Brick.Ports[InputPort.Two].SIValue;
+                        }
                     }
                 }
             }

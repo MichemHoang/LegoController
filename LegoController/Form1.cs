@@ -33,7 +33,7 @@ namespace LegoController
         {
             if (Connect_to_Brick)
             {
-                await _brick.MoveForwad(true, 40, 2000, 2);
+                await _brick.MoveForwad(true, -40, 2000, 2);
                 Debug.WriteLine("Moving forward");
                 OutputMess.Clear();
                 OutputMess.AppendText("Moving forward");
@@ -45,7 +45,7 @@ namespace LegoController
         {
             if (Connect_to_Brick)
             {
-                await _brick.TurnLeft(true, 20, 1500);
+                await _brick.TurnLeft(true, -30, 1500);
                 Debug.WriteLine("Turning left");
                 OutputMess.Clear();
                 OutputMess.AppendText("Turning left");
@@ -56,7 +56,7 @@ namespace LegoController
         {
             if (Connect_to_Brick)
             {
-                await _brick.MoveBackward(true, 30, 2000, 2);
+                await _brick.MoveBackward(true, -30, 2000, 2);
                 Debug.WriteLine("Moving backward");
                 OutputMess.Clear();
                 OutputMess.AppendText("Moving backward");
@@ -68,7 +68,7 @@ namespace LegoController
         {
             if (Connect_to_Brick)
             {
-                await _brick.TurnRight(true, 30, 1500);
+                await _brick.TurnRight(true, -30, 1500);
                 Debug.WriteLine("Turning right");
                 OutputMess.Clear();
                 OutputMess.AppendText("Turning right");
