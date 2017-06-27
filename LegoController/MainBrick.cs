@@ -15,8 +15,9 @@ namespace LegoController
         private Brick Ev3Brick;
         private int _forward, _backward, _pickUp, _dropOff;
         private uint _time = 2000;
-        private bool StopS = false;
+        private bool StopSignal = false;
         private int CurrentColor = 20;
+        bool CheckPickUp;
 
         public MainBrick()
         {
@@ -30,6 +31,7 @@ namespace LegoController
             _pickUp = -40;
             _forward = -40;
             _backward = 30;
+            CheckPickUp = false;
             if (A == 1) Ev3Brick = new Brick(new BluetoothCommunication(SerialPortName));
             else Ev3Brick = new Brick(new UsbCommunication());
             Ev3Brick.BrickChanged += Ev3Brick_BrickChanged;
@@ -46,7 +48,7 @@ namespace LegoController
 
         public async Task Connect_Brick()
         {
-            //await Ev3Brick.DirectCommand.SelectFontAsync(FontType.Medium);
+            await Ev3Brick.DirectCommand.SelectFontAsync(FontType.Medium);
             Ev3Brick.Ports[InputPort.Two].SetMode(ColorMode.Color);
             await Ev3Brick.ConnectAsync();
             await Ev3Brick.DirectCommand.PlayToneAsync(50, 1000, 300);
@@ -100,18 +102,24 @@ namespace LegoController
 
         public async Task Stop()
         {
-            StopS = true;
+            StopSignal = true;
             await Ev3Brick.DirectCommand.StopMotorAsync(OutputPort.C | OutputPort.B, true);
         }
 
+        //Color Value
+        //Black   = 1;
+        //Brown   = 7;
+        //Yellow  = 4;
+        //Red     = 5;
+        //White   = 0;
+        
         public async Task FollowPath()
         {
-            bool CheckPickUp = true;
             int PreviousColor = 20;
             int cnt = 0;
-            StopS = false;
+            StopSignal = false;
             int SensorDistance = (int)Ev3Brick.Ports[InputPort.Three].SIValue;
-            while (CurrentColor != 0 && !StopS)
+            while (CurrentColor != 0 && !StopSignal)
             {
                 SensorDistance = (int)Ev3Brick.Ports[InputPort.Three].SIValue;
                 if (SensorDistance < 30) break;
@@ -119,36 +127,36 @@ namespace LegoController
                 if (CurrentColor == 6) cnt++;
                 else cnt = 0;
                 Debug.WriteLine("Current color = {0}", CurrentColor);
-                if (CurrentColor == 7 || CurrentColor == 1)
+                if (CurrentColor == 7 || CurrentColor == 1 )
                 {
                     Debug.WriteLine("Moving forward");
                     await MoveForwad(true, 20, 30, 1);
                     PreviousColor = 1;
                     System.Threading.Thread.Sleep(32);
                 }
-                else
-                if (CurrentColor == 4 || (CurrentColor == 6 && PreviousColor == 4))
+                else //safeguards for when running into white area 
+                if (CurrentColor == 4 || (CurrentColor == 6 && PreviousColor == 4) && cnt < 4)
                 {
                     Debug.WriteLine("Turn right");
                     await TurnRight(true, 17, 30);
                     System.Threading.Thread.Sleep(32);
                     PreviousColor = 4;
                 }
-                else
-                if (CurrentColor == 5 || (CurrentColor == 6 && PreviousColor == 5))
+                else  //safeguards for when running into white area 
+                if (CurrentColor == 5 || (CurrentColor == 6 && PreviousColor == 5) && cnt < 4)
                 {
                     Debug.WriteLine("Turn Left");
                     await TurnLeft(true, 17, 30);
                     System.Threading.Thread.Sleep(32);
                     PreviousColor = 5;
                 }
-                else if (PreviousColor == 1 && CurrentColor == 6 || cnt > 3)
+                else if (PreviousColor == 1 && CurrentColor == 6 || cnt > 4)
                 {
                     Debug.WriteLine("IN AREA");
-                    if (CheckPickUp && true)
+                    if (CheckPickUp)
                     {
-
                         await MoveBackward(true, 30, 600, 1);
+                        System.Threading.Thread.Sleep(1500);
                         await TurnLeft(true, 20, 300);
                         System.Threading.Thread.Sleep(1500);
                         await DropOff(true);
@@ -162,22 +170,15 @@ namespace LegoController
                         System.Threading.Thread.Sleep(1500);
                         CurrentColor = (int)Ev3Brick.Ports[InputPort.Two].SIValue;
                         PreviousColor = 0;
-                        while (CurrentColor == 6 && !StopS)
+                        while (CurrentColor == 6 && !StopSignal)
                         {
                             await TurnRight(true, 10, 50);
-                            System.Threading.Thread.Sleep(12);
+                            System.Threading.Thread.Sleep(60);
                             CurrentColor = (int)Ev3Brick.Ports[InputPort.Two].SIValue;
                         }
                     }
                     else
                     {
-                        SensorDistance = (int)Ev3Brick.Ports[InputPort.One].SIValue;
-                        if (SensorDistance > 7)
-                        {
-
-                        }
-                        else
-                        {
                             await PickUp(true);
                             CheckPickUp = true;
                             System.Threading.Thread.Sleep(1000);
@@ -189,13 +190,13 @@ namespace LegoController
                             System.Threading.Thread.Sleep(1000);
                             CurrentColor = (int)Ev3Brick.Ports[InputPort.Two].SIValue;
                             PreviousColor = 0;
-                            while (CurrentColor == 6 && !StopS)
+                            while (CurrentColor == 6 && !StopSignal)
                             {
                                 await TurnRight(true, 10, 50);
-                                System.Threading.Thread.Sleep(12);
+                                System.Threading.Thread.Sleep(60);
                                 CurrentColor = (int)Ev3Brick.Ports[InputPort.Two].SIValue;
                             }
-                        }
+                        
                     }
                 }
             }
@@ -215,7 +216,6 @@ namespace LegoController
             //Debug.WriteLine("Current color = {0}", CC);
             //int SensorDistance = (int)Ev3Brick.Ports[InputPort.Three].SIValue;
             // Debug.WriteLine("Distance = {0}", SensorDistance);
-            // if (SensorDistance < 200);
         }
     }
 
