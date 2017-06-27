@@ -13,24 +13,19 @@ namespace LegoController
     class MainBrick
     {
         private Brick Ev3Brick;
-        private int _forward, _backward, _pickUp, _dropOff;
-        private uint _time = 2000;
+        private int _pickUp, _dropOff;
         private bool StopSignal = false;
         private int CurrentColor = 20;
         bool CheckPickUp;
 
         public MainBrick()
         {
-            _forward = 40;
-            _backward = -30;
         }
 
         public MainBrick(int A, string SerialPortName)
         {
             _dropOff = 40;
             _pickUp = -40;
-            _forward = -40;
-            _backward = 30;
             CheckPickUp = false;
             if (A == 1) Ev3Brick = new Brick(new BluetoothCommunication(SerialPortName));
             else Ev3Brick = new Brick(new UsbCommunication());
